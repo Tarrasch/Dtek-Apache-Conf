@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+	ServerName dfoto.se
+	ServerAlias www.dfoto.se dfoto.datateknologer.se www.dfoto.datateknologer.se
+
+	ServerAdmin webredax@dtek.se
+	
+	suPHP_UserGroup dfotose dfotose
+
+	DocumentRoot /home/dfotose/www/
+	<Directory /home/dfotose/www/>
+		Options -Indexes
+		Options +FollowSymLinks
+	</Directory>
+</VirtualHost>

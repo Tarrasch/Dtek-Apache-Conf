@@ -1,0 +1,23 @@
+<VirtualHost *:443>
+	ServerName partyservern.se
+	ServerAlias www.partyservern.se partyservern.datateknologer.se www.partyservern.datateknologer.se
+
+	ServerAdmin d6@dtek.se
+
+        suPHP_UserGroup partyse partyse
+
+	DocumentRoot /home/partyse/www/
+	<Directory /home/partyse/www/>
+		Options -Indexes
+                Options +FollowSymLinks
+	</Directory>
+
+	############# SSL ###############
+	SSLEngine on
+
+	SSLCertificateFile /etc/dtekssl/dtek.se.godaddy.cert
+	SSLCertificateKeyFile /etc/dtekssl/dtek.se.priv
+	SSLCertificateChainFile /etc/dtekssl/godaddy.chain.cert
+
+	SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+</VirtualHost>

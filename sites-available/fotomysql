@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+	ServerName fotomysql.datateknologer.se
+	ServerAlias www.fotomysql.datateknologer.se
+
+	ServerAdmin foto@dtek.se
+	
+	suPHP_UserGroup fotomysql fotomysql
+
+	DocumentRoot /home/fotomysql/www/
+	<Directory /home/fotomysql/www/>
+		Options -Indexes
+		Options +FollowSymLinks
+	</Directory>
+</VirtualHost>

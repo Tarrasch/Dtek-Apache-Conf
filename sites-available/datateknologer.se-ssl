@@ -1,0 +1,23 @@
+<VirtualHost *:443>
+	ServerName datateknologer.se
+	ServerAlias www.datateknologer.se dag.datateknologer.se www.dag.datateknologer.se
+
+	ServerAdmin dag@datateknologer.se
+
+        suPHP_UserGroup dataerse dataerse
+
+	DocumentRoot /home/dataerse/www/
+	<Directory /home/dataerse/www/>
+		Options -Indexes
+                Options +FollowSymLinks
+	</Directory>
+
+	############# SSL ###############
+	SSLEngine on
+
+	SSLCertificateFile /etc/dtekssl/dtek.se.godaddy.cert
+	SSLCertificateKeyFile /etc/dtekssl/dtek.se.priv
+	SSLCertificateChainFile /etc/dtekssl/godaddy.chain.cert
+
+	SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+</VirtualHost>

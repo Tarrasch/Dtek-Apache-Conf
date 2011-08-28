@@ -1,0 +1,129 @@
+<VirtualHost *:80>
+	ServerName dtek.se
+	ServerAlias www.dtek.se chalmers.dtek.se www.chalmers.dtek.se dtek.datateknologer.se www.dtek.datateknologer.se
+
+	ServerAdmin info@dtek.se
+	
+	suPHP_UserGroup dtekse dtekse
+
+	DocumentRoot /home/dtekse/www/
+	<Directory /home/dtekse/www/>
+		Options -Indexes
+		Options +FollowSymLinks
+	</Directory>
+
+	# Mailman has SetUID binarys in the ScriptAlias so that 
+	# all mailman is run as 'list', not as ollebe or root.
+	ScriptAlias	/mailman		/var/lib/mailman/cgi-bin/
+	Alias		/pipermail		/var/lib/mailman/archives/public/
+	Alias		/images/mailman		/var/lib/mailman/icons/
+
+	ScriptAlias	/irc			/home/dtekse/cgi-irc
+	Alias		/images/irc		/home/dtekse/cgi-irc/images
+
+	<Directory /home/d6/www/>
+	#	Options -Indexes
+	#	Options +FollowSymLinks
+	</Directory>
+	 Alias		/d6			/home/d6/www/
+
+    # Denna section nedan inlagt av arash for att kora yesodsiten po
+    # Det sägs att ProxyRequests Off behövs, annars blir det värsta säkerhetsläckan
+    # Vet inte om den ska stå här däremot och om det har effekt men jag antar det.
+    # ProxyRequests Off
+    # ProxyPass        /portal http://localhost:3000
+    # ProxyPassReverse /portal http://localhost:3000
+
+    ProxyRequests Off
+    ProxyPass        /formular-dev http://localhost:3000
+    ProxyPassReverse /formular-dev http://localhost:3000
+
+    ProxyRequests Off
+    ProxyPass        /formular http://localhost:4000
+    ProxyPassReverse /formular http://localhost:4000
+
+    # Nedan e so att http pekar om till https for portalen
+    RewriteEngine On
+    RewriteCond %{HTTPS} off   
+    RewriteRule ^/portal(.*) https://%{HTTP_HOST}%{REQUEST_URI} 
+
+
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName styret.dtek.se
+    Redirect / http://dtek.se/wiki/Main/Styret
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName presidiet.dtek.se
+    Redirect / http://dtek.se/wiki/Main/Presidiet
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName dag.dtek.se
+    Redirect / http://dtek.se/wiki/Main/DAG
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName snd.dtek.se
+    Redirect / http://dtek.se/wiki/Main/SND
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName delta.dtek.se
+    Redirect / http://dtek.se/wiki/Main/Delta 
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName d6.dtek.se
+    Redirect / http://dtek.se/wiki/Main/D6
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName dnollk.dtek.se
+    Redirect / http://dtek.se/wiki/Main/DNollK
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName drust.dtek.se
+    Redirect / http://dtek.se/wiki/Main/DRUST
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName dfoto.dtek.se
+    Redirect / http://dtek.se/wiki/Main/DFoto
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName idrott.dtek.se
+    Redirect / http://dtek.se/wiki/Main/IDrott
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName webredax.dtek.se
+    Redirect / http://dtek.se/wiki/Main/Webredax
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName daf.dtek.se
+    Redirect / http://dtek.se/wiki/Main/DAF
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName delirium.dtek.se
+    Redirect / http://dtek.se/wiki/Delirium/Delirium
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName luder.dtek.se
+    Redirect / http://dtek.se/wiki/Main/Luder
+</VirtualHost>
+
+
+# Redirect unknown subdomains to a site which explains about dteks subdomains /arash
+<VirtualHost *:80>
+    ServerName *.dtek.se
+    ServerAlias *.dtek.se
+    Redirect / http://dtek.se/wiki/Main/Subdomains
+</VirtualHost>

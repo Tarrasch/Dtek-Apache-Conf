@@ -1,0 +1,23 @@
+<VirtualHost *:443>
+	ServerName date-it.se
+	ServerAlias www.date-it.se dateit.datateknologer.se www.dateit.datateknologer.se
+
+	ServerAdmin info@date-it.se
+
+        suPHP_UserGroup dateitse dateitse
+
+	DocumentRoot /home/dateitse/www/
+	<Directory /home/dateitse/www/>
+		Options -Indexes
+                Options +FollowSymLinks
+	</Directory>
+
+	############# SSL ###############
+	SSLEngine on
+
+	SSLCertificateFile /etc/dtekssl/dtek.se.godaddy.cert
+	SSLCertificateKeyFile /etc/dtekssl/dtek.se.priv
+	SSLCertificateChainFile /etc/dtekssl/godaddy.chain.cert
+
+	SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+</VirtualHost>

@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+	ServerName foo.se
+	ServerAlias www.foo.se foo.datateknologer.se www.foo.datateknologer.se
+
+	ServerAdmin foo@dtek.se
+	
+	suPHP_UserGroup userfoo userfoo
+
+	DocumentRoot /home/userfoo/www/
+	<Directory /home/userfoo/www/>
+		Options -Indexes
+		Options +FollowSymLinks
+	</Directory>
+</VirtualHost>

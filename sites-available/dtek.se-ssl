@@ -1,0 +1,41 @@
+<VirtualHost *:443>
+	ServerName dtek.se
+	ServerAlias www.dtek.se chalmers.dtek.se www.chalmers.dtek.se dtek.datateknologer.se www.dtek.datateknologer.se
+
+	ServerAdmin info@dtek.se
+
+        suPHP_UserGroup dtekse dtekse
+
+	DocumentRoot /home/dtekse/www/
+	<Directory /home/dtekse/www/>
+		Options -Indexes
+                Options +FollowSymLinks
+	</Directory>
+
+        # Mailman has SetUID binarys in the ScriptAlias so that
+        # all mailman is run as 'list', not as ollebe or root.
+        ScriptAlias     /mailman                /var/lib/mailman/cgi-bin/
+        Alias           /pipermail              /var/lib/mailman/archives/public/
+        Alias           /images/mailman         /var/lib/mailman/icons/
+
+	ScriptAlias	/irc			/home/dtekse/cgi-irc
+	Alias		/images/irc		/home/dtekse/cgi-irc/images
+
+
+    # Denna section nedan inlagt av arash for att kora yesodsiten po
+    # Det sägs att ProxyRequests Off behövs, annars blir det värsta säkerhetsläckan
+    # Vet inte om den ska stå här däremot och om det har effekt men jag antar det.
+     ProxyRequests Off
+     ProxyPass        /portal http://localhost:3000
+     ProxyPassReverse /portal http://localhost:3000
+
+
+	############# SSL ###############
+	SSLEngine on
+
+	SSLCertificateFile /etc/dtekssl/dtek.se.godaddy.cert
+	SSLCertificateKeyFile /etc/dtekssl/dtek.se.priv
+	SSLCertificateChainFile /etc/dtekssl/godaddy.chain.cert
+
+	SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+</VirtualHost>
