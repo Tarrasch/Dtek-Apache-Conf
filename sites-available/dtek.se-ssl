@@ -33,9 +33,15 @@
 	############# SSL ###############
 	SSLEngine on
 
-	SSLCertificateFile /etc/dtekssl/dtek.se.godaddy.cert
-	SSLCertificateKeyFile /etc/dtekssl/dtek.se.priv
-	SSLCertificateChainFile /etc/dtekssl/godaddy.chain.cert
+    # Detta e nya certifikatfiler från StartSSL (de e gratis)
+    SSLCertificateFile /etc/ssl/certs/ssl.crt
+    SSLCertificateKeyFile /etc/ssl/private/server.key.insecure
+
+
+    # Gamla godadddycerten
+	# SSLCertificateFile /etc/dtekssl/dtek.se.godaddy.cert
+	# SSLCertificateKeyFile /etc/dtekssl/dtek.se.priv
+	# SSLCertificateChainFile /etc/dtekssl/godaddy.chain.cert
 
 	SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
 </VirtualHost>
